@@ -1,0 +1,86 @@
+%h1 Index page
+%div{:id => 'site'}
+
+:javascript
+  var List = function(){
+    return {
+      initialize: function(){
+        $('#site').append("<div id='main'><nav id='nav'><ul><li><a href='#/notes'>Notes</a></li><li><a href='#/todos'>Todos</a></li></ul></nav><div class='nav-site'>nav site</div></div>");
+      },
+      show: function(component){
+        $('.nav-site').empty();
+        $('.nav-site').append(component);
+        component.show();
+      }
+    };
+  };
+
+  var Sidebar = function(){
+    return {
+      initialize: function(){
+        $('#site').append("<div id='sidebar'><h3>Sidebar</h3>content...</div>");
+      }
+    };
+  };
+
+  var Todos = function(list){
+    return {
+      initialize: function(){
+        console.log('initializing todos');
+        if ($('.nav-site #todos').length == 0){
+          $('.nav-site').append("<div class='component' id='todos'><ol><li>get the milk</li><li>call someone</li></ol></div>");
+        }
+        list.show($('#todos'));
+      }
+    };
+  };
+
+  var Notes = function(list){
+    return {
+      initialize: function(){
+        console.log('initializing notes');
+        if ($('.nav-site #notes').length == 0){
+          $('.nav-site').append("<div class='component' id='notes'>the things we do to ourselves</div>");
+        }
+        list.show($('#notes'));
+      }
+    };
+  };
+
+  var app = Sammy('#site', function() {
+    promiseSidebar = function(){
+      if (typeof(sidebar) === "undefined") {
+        sidebar = Sidebar();
+        sidebar.initialize();
+      }
+      return sidebar;
+    };
+
+    promiseList = function(){
+      if (typeof(list) === "undefined") {
+        list = List();
+        list.initialize();
+      }
+      return list;
+    };
+
+    this.get('#/', function() {
+      console.log('routing...');
+      promiseList();
+      promiseSidebar();
+    });
+
+    this.get('#/todos', function(){
+      console.log('routing to todos');
+      promiseSidebar();
+      Todos(promiseList()).initialize();
+    });
+
+    this.get('#/notes', function(){
+      console.log('routing to notes');
+      promiseSidebar();
+      Notes(promiseList()).initialize();
+    });
+  });
+
+  app.run('#/');

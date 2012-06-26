@@ -1,0 +1,6 @@
+#sidebar {float:right; width:40%;}
+#main {float:left; background-color:#eee; padding:1em; width:50%;}
+#nav li {display:inline; margin-right:1em;}
+#nav ul {margin:0; padding:0;}
+#nav {border-bottom:1px solid #ccc; margin-bottom:2em;}
+.component {display:none;}
