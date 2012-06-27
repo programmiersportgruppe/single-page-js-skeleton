@@ -5,3 +5,10 @@
 require File.expand_path('../config/application', __FILE__)
 
 Skeleton::Application.load_tasks
+
+namespace :test do
+  desc 'Runs all javascripts tests'
+  task :js do
+    puts `node_modules/jasmine-node/bin/jasmine-node spec`
+  end
+end

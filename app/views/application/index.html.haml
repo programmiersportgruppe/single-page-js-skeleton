@@ -22,27 +22,37 @@
     sidebar content
 
 :javascript
+  curl(
+    {
+        baseUrl: "/assets",
+        paths: {
+          "jquery": "jquery-1.7.2",
+          "knockout": "knockout-2.1.0.debug"
+        }
+    },
+    
+    ["knockout", "application", "jquery", "sammy"], function (ko, Application, $, Sammy) {
 
-  $(document).ready(function(){
-    application = Application();
-    ko.applyBindings(application);
+      application = Application();
+      ko.applyBindings(application);
 
-    var router = Sammy('#site', function() {
-      this.get('#/', function() {
-        console.log('routing...');
-        this.redirect("#/todos");
+      var router = Sammy('#site', function() {
+        this.get('#/', function() {
+          console.log('routing...');
+          this.redirect("#/todos");
+        });
+
+        this.get('#/todos', function(){
+          console.log('routing to todos');
+          application.showTodos();
+        });
+
+        this.get('#/notes', function(){
+          console.log('routing to notes');
+          application.showNotes();
+        });
       });
 
-      this.get('#/todos', function(){
-        console.log('routing to todos');
-        application.showTodos();
-      });
-
-      this.get('#/notes', function(){
-        console.log('routing to notes');
-        application.showNotes();
-      });
-    });
-
-    router.run('#/');
-  });
+      router.run('#/');
+    }
+  );

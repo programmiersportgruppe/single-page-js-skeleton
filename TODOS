@@ -1,4 +1,5 @@
 # TODOS
 - require different modules
 - compile your files into one
-- implement with knockout
+- problem: we are testing with a different knockout module than the one we use in the browser
+
