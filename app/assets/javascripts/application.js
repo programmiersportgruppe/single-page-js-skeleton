@@ -8,8 +8,6 @@ define(["knockout"], function(ko){
   var Notes = function(){
     return {
       visible: ko.observable(false),
-      notes: ko.observable("Hello Matt")
-
     };
   };
 
@@ -25,12 +23,12 @@ define(["knockout"], function(ko){
       notes: Notes(),
       todos: Todos(),
       showNotes: function(){
-          application.todos.visible(false);
-          application.notes.visible(true);
+        this.todos.visible(false);
+        this.notes.visible(true);
       },
       showTodos: function(){
-          application.todos.visible(true);
-          application.notes.visible(false);
+        this.todos.visible(true);
+        this.notes.visible(false);
       }
     };
   };

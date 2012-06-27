@@ -2,4 +2,5 @@
 - require different modules
 - compile your files into one
 - problem: we are testing with a different knockout module than the one we use in the browser
+- problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 

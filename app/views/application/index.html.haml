@@ -31,28 +31,9 @@
         }
     },
     
-    ["knockout", "application", "jquery", "sammy"], function (ko, Application, $, Sammy) {
-
-      application = Application();
+    ["knockout", "application", "router"], function (ko, Application, Router) {
+      var application = Application();
       ko.applyBindings(application);
-
-      var router = Sammy('#site', function() {
-        this.get('#/', function() {
-          console.log('routing...');
-          this.redirect("#/todos");
-        });
-
-        this.get('#/todos', function(){
-          console.log('routing to todos');
-          application.showTodos();
-        });
-
-        this.get('#/notes', function(){
-          console.log('routing to notes');
-          application.showNotes();
-        });
-      });
-
-      router.run('#/');
+      Router(application).run();
     }
   );

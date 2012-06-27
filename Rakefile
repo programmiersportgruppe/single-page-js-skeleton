@@ -6,6 +6,8 @@ require File.expand_path('../config/application', __FILE__)
 
 Skeleton::Application.load_tasks
 
+task :default => 'test:js'
+
 namespace :test do
   desc 'Runs all javascripts tests'
   task :js do
