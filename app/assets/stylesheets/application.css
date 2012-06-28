@@ -1,5 +1,8 @@
+a, a:hover, a:link, a:active {color:#666;}
 #sidebar {float:right; width:40%;}
-#main {float:left; background-color:#eee; padding:1em; width:50%;}
-#nav li {display:inline; margin-right:1em;}
+#main {border-radius:20px; border:2px #ccc solid; float:left; background-color:#eee; margin:1em; padding:1em; width:50%;}
+#nav li {display:inline; padding:2px 1em;}
+#nav li a {text-decoration:none;}
 #nav ul {margin:0; padding:0;}
-#nav {border-bottom:1px solid #ccc; margin-bottom:2em;}
+#nav {font-variant:small-caps; border-bottom:1px solid #ccc; margin-bottom:2em;}
+li.selected {background-color:#ccc;}

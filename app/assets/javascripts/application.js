@@ -44,14 +44,17 @@ define(["knockout", "jquery"], function(ko, $){
       sidebar: Sidebar(),
       notes: Notes(),
       todos: Todos(),
+      selectedTab: ko.observable(),
       showNotes: function(){
         this.todos.visible(false);
         this.notes.visible(true);
+        this.selectedTab("notes");
       },
       showTodos: function(){
         this.todos.visible(true);
         this.notes.visible(false);
         this.todos.refresh();
+        this.selectedTab("todos");
       }
     };
   };

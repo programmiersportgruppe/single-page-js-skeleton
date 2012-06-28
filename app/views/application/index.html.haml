@@ -1,12 +1,10 @@
-%h1 Index page
-
 %div{:id => 'site'}
   %div{:id => 'main'}
     %nav{:id => 'nav'}
       %ul
-        %li
+        %li{'data-bind' => 'css: { selected: "notes" == $root.selectedTab() }'}
           %a{:href => '#/notes'} Notes
-        %li
+        %li{'data-bind' => 'css: { selected: "todos" == $root.selectedTab() }'}
           %a{:href => '#/todos'} Todos
     .nav-site
       .component{:id => 'todos', 'data-bind' => 'visible: todos.visible'}
@@ -21,7 +19,24 @@
 
   %div{:id => 'sidebar'}
     %h3 Sidebar
-    sidebar content
+    %p Welcome to this sample app. This application was built to demonstrate a single-page javascript application.
+    %p 
+      The client side makes use of:
+      %ul
+        %li 
+          %a{:href => 'http://knockoutjs.com/documentation/introduction.html'} knockout.js
+        %li 
+          %a{:href => 'http://sammyjs.org/docs'} sammy.js
+        %li
+          %a{:href => 'https://github.com/cujojs/curl'} curl.js
+    %p The server side is a Rails application.
+    %p 
+      Feel free to try the following things:
+      %ul
+        %li Use the back button
+        %li Use the forward button
+        %li Refresh the page
+        %li Bookmark the page
 
 :javascript
   curl(
