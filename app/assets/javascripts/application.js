@@ -7,7 +7,7 @@ define(["knockout", "jquery"], function(ko, $){
 
   var Notes = function(){
     return {
-      visible: ko.observable(false),
+      visible: ko.observable(false)
     };
   };
 

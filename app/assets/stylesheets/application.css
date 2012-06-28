@@ -5,4 +5,4 @@ a, a:hover, a:link, a:active {color:#666;}
 #nav li a {text-decoration:none;}
 #nav ul {margin:0; padding:0;}
 #nav {font-variant:small-caps; border-bottom:1px solid #ccc; margin-bottom:2em;}
-li.selected {background-color:#ccc;}
+li.selected {background-color:#ccc; border-radius: 10px 10px 0 0;}
