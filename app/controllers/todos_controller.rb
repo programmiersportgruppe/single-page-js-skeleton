@@ -1,7 +1,9 @@
 class TodosController < ApplicationController
+  before_filter :require_login
+
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = current_user.todos
 
     respond_to do |format|
       format.json { render json: @todos }
@@ -34,6 +36,7 @@ class TodosController < ApplicationController
   # POST /todos.json
   def create
     @todo = Todo.new(params[:todo])
+    @todo.user_id = current_user.id
 
     respond_to do |format|
       if @todo.save

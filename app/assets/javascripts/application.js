@@ -17,7 +17,7 @@ define(["knockout", "jquery"], function(ko, $){
         $.getJSON("/todos.json", function(data) {
           self.list([]);
           $.each(data, function(index, todo){
-            self.list.push(todo);
+            self.list.push(todo['todo']);
           });
         });
       },
@@ -31,9 +31,20 @@ define(["knockout", "jquery"], function(ko, $){
         self.synchronize(todo);
       },
       synchronize: function(todo){
-        $.post('/todos.json', {todo: todo}, function(response) {
-          console.log('posted the todo to the server: ' + response);
-        }, 'json');
+        $.ajax({
+            type: 'POST',
+            url: '/todos.json',
+            data: {todo: todo},
+            success: function(response) {
+              console.log('posted the todo to the server: ' + response);
+            },
+            dataType: 'json',
+            beforeSend: function(xhr){
+              var token = $('meta[name="csrf-token"]').attr('content');
+              console.log('sending token: ' + token);
+              xhr.setRequestHeader('X-CSRF-Token', token);
+            }
+        });
       }
     };
     return self;

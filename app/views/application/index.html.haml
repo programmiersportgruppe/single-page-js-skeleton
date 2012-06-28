@@ -10,7 +10,7 @@
       .component{:id => 'todos', 'data-bind' => 'visible: todos.visible'}
         %ol{'data-bind' => 'foreach: todos.list'}
           %li{'data-bind' => 'text: content'}
-        %input{'data-bind' => 'value: todos.next_todo'}
+        %input{:type => 'text', 'data-bind' => 'value: todos.next_todo'}
         %button{'data-bind' => 'click: todos.add_next_todo_to_list'}= I18n.t 'add_todo'
       .component{:id => 'notes', 'data-bind' => 'visible: notes.visible'}
         = I18n.t 'notes_content'

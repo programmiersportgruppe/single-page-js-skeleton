@@ -3,8 +3,8 @@
 - problem: we are testing with different code (npm install) than what we are using (assets)
 - problem: not sure how to run the javascript tests in the browser
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
-- introduce i18n
 - authentication
 
 # QUESTIONS
-- how to attach to ko observables in order to chain behavior
+- how to attach to ko observables in order to chain behavior?
+- do we really need i18n on the JS side?

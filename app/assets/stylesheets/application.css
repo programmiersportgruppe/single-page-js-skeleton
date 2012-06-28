@@ -1,4 +1,5 @@
 a, a:hover, a:link, a:active {color:#666;}
+button, input[type='button'], input[type='submit'] {font-size:100%;}
 #sidebar {float:right; width:40%;}
 #main {border-radius:20px; border:2px #ccc solid; float:left; background-color:#eee; margin:1em; padding:1em; width:50%;}
 #nav li {display:inline; padding:2px 1em;}
@@ -6,3 +7,11 @@ a, a:hover, a:link, a:active {color:#666;}
 #nav ul {margin:0; padding:0;}
 #nav {font-variant:small-caps; border-bottom:1px solid #ccc; margin-bottom:2em;}
 li.selected {background-color:#ccc; border-radius: 10px 10px 0 0;}
+.topbar {font-size:75%; background-color:#eee; margin-bottom:1em; padding:0.5em;}
+label {width:12em; display:inline-block;}
+input[type='password'], input[type='text'] {width:10em; font-size:110%; padding:1px;}
+.error_messages, .alert {color:red; margin:1em;}
+.notice {color:green;}
+.field_with_errors {display:inline; }
+.field_with_errors label {border:1px solid red;}
+.actions {margin-top:2em;}
