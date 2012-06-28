@@ -3,24 +3,22 @@
     %nav{:id => 'nav'}
       %ul
         %li{'data-bind' => 'css: { selected: "notes" == $root.selectedTab() }'}
-          %a{:href => '#/notes'} Notes
+          %a{:href => '#/notes'}= I18n.t 'notes'
         %li{'data-bind' => 'css: { selected: "todos" == $root.selectedTab() }'}
-          %a{:href => '#/todos'} Todos
+          %a{:href => '#/todos'}= I18n.t 'todos'
     .nav-site
       .component{:id => 'todos', 'data-bind' => 'visible: todos.visible'}
         %ol{'data-bind' => 'foreach: todos.list'}
           %li{'data-bind' => 'text: content'}
         %input{'data-bind' => 'value: todos.next_todo'}
-        %button{'data-bind' => 'click: todos.add_next_todo_to_list'} add todo
+        %button{'data-bind' => 'click: todos.add_next_todo_to_list'}= I18n.t 'add_todo'
       .component{:id => 'notes', 'data-bind' => 'visible: notes.visible'}
-        these
-        are
-        notes
+        = I18n.t 'notes_content'
 
   %div{:id => 'sidebar'}
-    %p Welcome to this sample app. This application was built to demonstrate a single-page javascript application.
+    %p= I18n.t 'sidebar.one'
     %p 
-      The client side makes use of:
+      = I18n.t 'sidebar.two'
       %ul
         %li 
           %a{:href => 'http://knockoutjs.com/documentation/introduction.html'} knockout.js
@@ -28,14 +26,14 @@
           %a{:href => 'http://sammyjs.org/docs'} sammy.js
         %li
           %a{:href => 'https://github.com/cujojs/curl'} curl.js
-    %p The server side is a Rails application.
+    %p= I18n.t 'sidebar.three' 
     %p 
-      Feel free to try the following things:
+      = I18n.t 'sidebar.try_this.header'
       %ul
-        %li Use the back button
-        %li Use the forward button
-        %li Refresh the page
-        %li Bookmark the page
+        %li= I18n.t 'sidebar.try_this.one'
+        %li= I18n.t 'sidebar.try_this.two'
+        %li= I18n.t 'sidebar.try_this.three'
+        %li= I18n.t 'sidebar.try_this.four'
 
 :javascript
   curl(

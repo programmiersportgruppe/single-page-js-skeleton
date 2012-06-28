@@ -1,0 +1,16 @@
+fr:
+  todos: "À faire"
+  notes: "Mes notes"
+  notes_content: "Hmmm. Revenez içi plus tard..."
+  add_todo: "Ajouter à la liste"
+  sidebar:
+    one: "Bienvenue à ce site démo. Cette application a été batie pour démontrer une application javascript avec page unique."
+    two: "Le côté client utilise les technologies suivantes:"
+    three: "Le côté serveur est une application Rails."
+    try_this: 
+      header: "Essayez donc les choses suivantes:"
+      one: "Utilisez le bouton 'back' pour retourner en arrière"
+      two: "Utilisez le bouton 'forward' pour revenir en avant"
+      three: "Rafraichissez la page"
+      four: "Faites de cette page un favori"
+

@@ -2,4 +2,18 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  todos: "Todos"
+  notes: "Notes"
+  notes_content: "Hmmm. Please come back later..."
+  add_todo: "Add todo"
+  sidebar:
+    one: "Welcome to this sample app. This application was built to demonstrate a single-page javascript application."
+    two: "The client side makes use of:"
+    three: "The server side is a Rails application."
+    try_this: 
+      header: "Feel free to try the following things:"
+      one: "Use the back button"
+      two: "Use the forward button"
+      three: "Refresh the page"
+      four: "Bookmark the page"
+
