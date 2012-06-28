@@ -1,5 +1,3 @@
-ko = require('knockout');
-
 require('requirejs')(['app/assets/javascripts/application.js'],
 		function (Application) {
       describe("application", function() {

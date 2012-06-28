@@ -1,4 +1,5 @@
 %h1 Index page
+
 %div{:id => 'site'}
   %div{:id => 'main'}
     %nav{:id => 'nav'}
@@ -9,9 +10,10 @@
           %a{:href => '#/todos'} Todos
     .nav-site
       .component{:id => 'todos', 'data-bind' => 'visible: todos.visible'}
-        %ol
-          %li get the milk
-          %li pick up the kids
+        %ol{'data-bind' => 'foreach: todos.list'}
+          %li{'data-bind' => 'text: content'}
+        %input{'data-bind' => 'value: todos.next_todo'}
+        %button{'data-bind' => 'click: todos.add_next_todo_to_list'} add todo
       .component{:id => 'notes', 'data-bind' => 'visible: notes.visible'}
         these
         are
@@ -32,7 +34,7 @@
     },
     
     ["knockout", "application", "router"], function (ko, Application, Router) {
-      var application = Application();
+      application = Application();
       ko.applyBindings(application);
       Router(application).run();
     }

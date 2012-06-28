@@ -1,6 +1,8 @@
 # TODOS
-- require different modules
 - compile your files into one
-- problem: we are testing with a different knockout module than the one we use in the browser
+- problem: we are testing with different code (npm install) than what we are using (assets)
+- problem: not sure how to run the javascript tests in the browser
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 
+# QUESTIONS
+- how to attach to observables in order to chain behavior
