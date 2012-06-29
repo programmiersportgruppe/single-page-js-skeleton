@@ -36,18 +36,19 @@
         %li= I18n.t 'sidebar.try_this.four'
 
 :javascript
-  curl(
-    {
-        baseUrl: "/assets",
-        paths: {
-          "jquery": "jquery-1.7.2",
-          "knockout": "knockout-2.1.0.debug"
-        }
-    },
-    
-    ["knockout", "application", "router"], function (ko, Application, Router) {
-      application = Application();
-      ko.applyBindings(application);
-      Router(application).run();
-    }
-  );
+  var paths = {};
+
+  if ('#JAVASCRIPT_PROCESSING' === 'compiled'){
+    paths.router = "compiled";
+    paths.application = "compiled";
+    paths.jquery = "compiled";
+    paths.knockout = "compiled";
+  }
+
+  require = function(){console.log("require("+ arguments[0] + ") was called but is not defined");}
+
+  curl({ baseUrl: "/assets", paths: paths }, ["knockout", "application", "router"], function (ko, Application, Router) {
+    application = Application();
+    ko.applyBindings(application);
+    Router(application).run();
+  });

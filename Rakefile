@@ -8,27 +8,40 @@ Skeleton::Application.load_tasks
 
 task :default => 'test:js'
 
+def run cmd
+  output = `#{cmd}`
+  puts output if !output.chomp.strip.empty?
+end
+
 namespace :js do
   desc 'compiles the javascript files'
   task :compile => ['dist:create'] do
-    files = Dir['app/assets/javascripts/**/*.js']
-    files.each{|f| 
-      puts "Compiling #{f}"
-      puts `java -jar script/compiler.jar --warning_level QUIET --js=#{f} --js_output_file=dist/#{f}` 
+    all_files = Dir['dist/app/assets/javascripts/**/*.js']
+    run " cd dist/app/assets/javascripts && ../../../node_modules/requirejs/bin/r.js -o name=main.js out=compiled.js baseUrl=."
+
+    FileUtils.rm_rf (all_files - Dir['dist/app/assets/javascripts/curl.js', 'dist/app/assets/javascripts/curl/**/*', 'dist/app/assets/javascripts/compiled.js'])
+  end
+end
+
+namespace :html do
+  task :preprocess => ['dist:create'] do
+    html_files = Dir['dist/**/*html.haml']
+    html_files.each{|f|
+      puts `ruby -pi -e 'gsub(/#JAVASCRIPT_PROCESSING/,"compiled")' #{f}`
     }
   end
 end
 
 namespace :dist do
-  task :create do
-    FileUtils.rm_rf "dist"
+  task :create => ['clean'] do
     FileUtils.mkdir "dist"
-    puts `cp -r * dist/`
+    run "cp -r * dist/"
     puts "Ignore the above message about dist/dist"
+    FileUtils.rm_rf Dir['dist/**/.*sw*']
   end
 
   desc 'Serves a copy of the app with all resources compiled'
-  task :server => ['create'] do
+  task :server => ['dist:create', 'js:compile', 'html:preprocess'] do
     IO.popen( "cd dist > /dev/null && rake server") do |f| f.each { |line| puts line } end
   end
 end
@@ -36,10 +49,13 @@ end
 task :server do
   STDOUT.sync = true
   STDERR.sync = true
-  puts
   puts "Serving from #{`pwd`}"
-  puts
   load('script/rails')
+end
+
+desc 'Cleans all build artifacts'
+task :clean do
+  FileUtils.rm_rf "dist"
 end
 
 namespace :test do

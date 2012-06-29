@@ -1975,4 +1975,4 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
 
   return Sammy;
 });
-})(jQuery, window);
+})(undefined, window);
