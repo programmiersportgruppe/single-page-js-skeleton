@@ -25,7 +25,7 @@
         %li 
           %a{:href => 'http://sammyjs.org/docs'} sammy.js
         %li
-          %a{:href => 'https://github.com/cujojs/curl'} curl.js
+          %a{:href => 'http://requirejs.org/'} require.js
     %p= I18n.t 'sidebar.three' 
     %p 
       = I18n.t 'sidebar.try_this.header'
@@ -34,21 +34,3 @@
         %li= I18n.t 'sidebar.try_this.two'
         %li= I18n.t 'sidebar.try_this.three'
         %li= I18n.t 'sidebar.try_this.four'
-
-:javascript
-  var paths = {};
-
-  if ('#JAVASCRIPT_PROCESSING' === 'compiled'){
-    paths.router = "compiled";
-    paths.application = "compiled";
-    paths.jquery = "compiled";
-    paths.knockout = "compiled";
-  }
-
-  require = function(){console.log("require("+ arguments[0] + ") was called but is not defined");}
-
-  curl({ baseUrl: "/assets", paths: paths }, ["knockout", "application", "router"], function (ko, Application, Router) {
-    application = Application();
-    ko.applyBindings(application);
-    Router(application).run();
-  });

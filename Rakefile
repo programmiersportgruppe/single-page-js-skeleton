@@ -17,18 +17,9 @@ namespace :js do
   desc 'compiles the javascript files'
   task :compile => ['dist:create'] do
     all_files = Dir['dist/app/assets/javascripts/**/*.js']
-    run " cd dist/app/assets/javascripts && ../../../node_modules/requirejs/bin/r.js -o name=main.js out=compiled.js baseUrl=."
+    run " cd dist/app/assets/javascripts && ../../../node_modules/requirejs/bin/r.js -o name=main.js out=main.js baseUrl=."
 
-    FileUtils.rm_rf (all_files - Dir['dist/app/assets/javascripts/curl.js', 'dist/app/assets/javascripts/curl/**/*', 'dist/app/assets/javascripts/compiled.js'])
-  end
-end
-
-namespace :html do
-  task :preprocess => ['dist:create'] do
-    html_files = Dir['dist/**/*html.haml']
-    html_files.each{|f|
-      puts `ruby -pi -e 'gsub(/#JAVASCRIPT_PROCESSING/,"compiled")' #{f}`
-    }
+    FileUtils.rm_rf (all_files - ['dist/app/assets/javascripts/main.js', 'dist/app/assets/javascripts/require.js'])
   end
 end
 
@@ -41,7 +32,7 @@ namespace :dist do
   end
 
   desc 'Serves a copy of the app with all resources compiled'
-  task :server => ['dist:create', 'js:compile', 'html:preprocess'] do
+  task :server => ['dist:create', 'js:compile'] do
     IO.popen( "cd dist > /dev/null && rake server") do |f| f.each { |line| puts line } end
   end
 end
