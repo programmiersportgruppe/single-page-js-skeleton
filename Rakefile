@@ -54,4 +54,11 @@ namespace :test do
   task :js do
     puts `node_modules/jasmine-node/bin/jasmine-node spec`
   end
+
+  namespace :browser do
+    desc 'Runs all javascript tests in the browser'
+    task :js do
+      run "firefox spec/javascripts/test-runner.html"
+    end
+  end
 end
