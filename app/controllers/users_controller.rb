@@ -1,14 +1,16 @@
 class UsersController < ApplicationController
-  def new
-    @user = User.new
+  def create
+    @user = User.new(params)
+    if @user.save
+      @message = "You are now signed up!"
+      render 'application/success'
+    else
+      @error = "Could not create user"
+      render 'application/error', :status => '401'
+    end
   end
 
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      redirect_to root_url, :notice => "You are now signed up!"
-    else
-      render :new
-    end
+  def fetch
+    @user = current_user
   end
 end

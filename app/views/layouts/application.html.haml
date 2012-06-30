@@ -8,19 +8,40 @@
   %body
 
     .topbar
-      - if logged_in?
-        = "logged in as #{current_user.username} (#{pluralize current_user.todos.size, 'todo'})"
+      .logged_in_template{'data-bind' => 'visible: authenticator.logged_in'}
+        logged in as 
+        %span{'data-bind' => 'text: authenticator.username'}
         |
-        = link_to "log out", logout_path
-      - else
-        = link_to "sign up", signup_path
+        %a{:href => sessions_path, 'data-bind' => 'click: authenticator.logout'} logout
+      .logged_out_template{'data-bind' => 'visible: authenticator.logged_in() == false'}
+        %a{:href => users_path, 'data-bind' => 'click: authenticator.toggle_sign_up'} sign up
         or 
-        = link_to "log in", login_path
+        %a{:href => sessions_path, 'data-bind' => 'click: authenticator.toggle_log_in'} log in
 
-    - if flash.notice
-      .notice= flash.notice
+        %form{'data-bind' => 'submit: authenticator.sign_up, visible: authenticator.sign_up_page.visible', :method => 'post', :action => users_path}
+          .field
+            %label Username
+            %input{:type => 'text', :name => 'username'}
+          .field
+            %label Password
+            %input{:type => 'password', :name => 'password'}
+          .field
+            %label Password confirmation
+            %input{:type => 'password', :name => 'password_confirmation'}
+          .actions
+            %input{:type => 'submit'}
 
-    - if flash.alert
-      .alert= flash.alert
+        %form{'data-bind' => 'submit: authenticator.log_in, visible: authenticator.log_in_page.visible', :method => 'post', :action => sessions_path}
+          .field
+            %label Username
+            %input{:type => 'text', :name => 'username'}
+          .field
+            %label Password
+            %input{:type => 'password', :name => 'password'}
+          .actions
+            %button{:type => 'submit'} Log in
+
+    .notice= flash.notice
+    .alert= flash.alert
 
     = yield

@@ -1,12 +1,12 @@
 # TODOS
-- problem: how to compile js files into one if each module needs to be in its own file
 - problem: we are testing with different code (npm install) than what we are using (assets)
 - problem: not sure how to run the javascript tests in the browser
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
-- authentication single page style
 - lazy init of a new view
+- how to hide components until knockout has parsed them
 
 # QUESTIONS
-- how to attach to ko observables in order to chain behavior?
 - do we really need i18n on the JS side?
-- is rails useful as the JS server
+- is Rails useful as the JS server
+- how to do the alert/notice with a timeout knockout-like
+- how to refresh todos when user logs in knockout-style?

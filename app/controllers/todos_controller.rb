@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_filter :require_login
+  before_filter :make_sure_user_is_logged_in
 
   # GET /todos.json
   def index

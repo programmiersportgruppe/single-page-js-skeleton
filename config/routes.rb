@@ -1,16 +1,13 @@
 Skeleton::Application.routes.draw do
-  get "sessions/new"
+  get "users/fetch", :controller => "users", :action => "fetch", :constraints => {:format => /json/}
 
-  get "users/new"
+  delete "sessions", :controller => "sessions", :action => "destroy", :constraints => {:format => /json/}
 
   resources :todos, :constraints => {:format => /json/}
 
   # sorcery stuff
-  get "logout" => "sessions#destroy", :as => "logout"
-  get "login" => "sessions#new", :as => "login"
-  get "signup" => "users#new", :as => "signup"
-  resources :users
-  resources :sessions
+  resources :users, :constraints => {:format => /json/}
+  resources :sessions, :constraints => {:format => /json/}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
