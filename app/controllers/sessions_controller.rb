@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       @message = "You are now logged in!"
       render 'application/success'
     else
-      @error = "Username of password was invalid."
+      @error = "Username or password was invalid."
       render 'application/error', :status => '401'
     end
   end

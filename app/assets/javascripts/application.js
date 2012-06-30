@@ -1,4 +1,17 @@
 define(["knockout", "jquery"], function(ko, $){
+  $.ajaxSetup({
+    dataType: 'json',
+    beforeSend: function(xhr){
+      var token = $('meta[name="csrf-token"]').attr('content');
+      console.log('sending token: ' + token);
+      xhr.setRequestHeader('X-CSRF-Token', token);
+    },
+    error: function(response){
+      var message = eval("(" + response.responseText + ")").error;
+      console.log('error: ' + message);
+      application.showAlert(message);
+    }
+  });
 
   var Authenticator = function(){
     var self = {
@@ -11,18 +24,7 @@ define(["knockout", "jquery"], function(ko, $){
               application.showNotice(response.success);
               self.username("");
               self.logged_in(false);
-            },
-            error: function(response){
-              args = arguments;
-              var message = eval("(" + response.responseText + ")").error;
-              console.log('error logging out: ' + message);
-              application.showAlert(message);
-            },
-            dataType: 'json',
-            beforeSend: function(xhr){
-              var token = $('meta[name="csrf-token"]').attr('content');
-              console.log('sending token: ' + token);
-              xhr.setRequestHeader('X-CSRF-Token', token);
+              application.refresh();
             }
         });
       },
@@ -34,19 +36,8 @@ define(["knockout", "jquery"], function(ko, $){
               if (response.user){
                 self.username(response.user.username);
                 self.logged_in(true);
+                application.refresh();
               }
-            },
-            error: function(response){
-              args = arguments;
-              var message = eval("(" + response.responseText + ")").error;
-              console.log('error fetching: ' + message);
-              application.showNotice(message);
-            },
-            dataType: 'json',
-            beforeSend: function(xhr){
-              var token = $('meta[name="csrf-token"]').attr('content');
-              console.log('sending token: ' + token);
-              xhr.setRequestHeader('X-CSRF-Token', token);
             }
         });
       },
@@ -66,18 +57,7 @@ define(["knockout", "jquery"], function(ko, $){
               application.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
-            },
-            error: function(response){
-              args = arguments;
-              var message = eval("(" + response.responseText + ")").error;
-              console.log('error signing up: ' + message);
-              application.showAlert(message);
-            },
-            dataType: 'json',
-            beforeSend: function(xhr){
-              var token = $('meta[name="csrf-token"]').attr('content');
-              console.log('sending token: ' + token);
-              xhr.setRequestHeader('X-CSRF-Token', token);
+              application.refresh();
             }
         });
       },
@@ -87,22 +67,11 @@ define(["knockout", "jquery"], function(ko, $){
             url: form.action,
             data: $(form).serialize(),
             success: function(response) {
-              console.log('logged in:' + response.success);
+              console.log('logged in: ' + response.success);
               application.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
-            },
-            error: function(response){
-              args = arguments;
-              var message = eval("(" + response.responseText + ")").error;
-              console.log('error: ' + message);
-              application.showAlert(message);
-            },
-            dataType: 'json',
-            beforeSend: function(xhr){
-              var token = $('meta[name="csrf-token"]').attr('content');
-              console.log('sending token: ' + token);
-              xhr.setRequestHeader('X-CSRF-Token', token);
+              application.refresh();
             }
         });
 
@@ -120,6 +89,11 @@ define(["knockout", "jquery"], function(ko, $){
   var Todos = function(){
     self = {
       refresh: function(){
+        if (!application.authenticator.logged_in()){
+          self.list([]);
+          return;
+        }
+        
         $.getJSON("/todos.json", function(data) {
           self.list([]);
           $.each(data, function(index, todo){
@@ -143,12 +117,6 @@ define(["knockout", "jquery"], function(ko, $){
             data: {todo: todo},
             success: function(response) {
               console.log('posted the todo to the server: ' + response);
-            },
-            dataType: 'json',
-            beforeSend: function(xhr){
-              var token = $('meta[name="csrf-token"]').attr('content');
-              console.log('sending token: ' + token);
-              xhr.setRequestHeader('X-CSRF-Token', token);
             }
         });
       }
@@ -162,6 +130,9 @@ define(["knockout", "jquery"], function(ko, $){
       todos: Todos(),
       authenticator: Authenticator(),
       selectedTab: ko.observable(),
+      refresh: function (){
+        self.todos.refresh();
+      },
       showNotes: function(){
         self.todos.visible(false);
         self.notes.visible(true);
@@ -170,17 +141,16 @@ define(["knockout", "jquery"], function(ko, $){
       showTodos: function(){
         self.todos.visible(true);
         self.notes.visible(false);
-        self.todos.refresh();
         self.selectedTab("todos");
       },
       showAlert: function(str){
-        $(".alert").text(str);
+        $(".alert").text(str).show();
         setTimeout(function(){
           $(".alert").slideUp();
         }, 2000);
       },
       showNotice: function(str){
-        $(".notice").text(str);
+        $(".notice").text(str).show();
         setTimeout(function(){
           $(".notice").slideUp();
         }, 2000);
