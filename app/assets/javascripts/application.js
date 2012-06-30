@@ -176,17 +176,16 @@ define(["knockout", "jquery"], function(ko, $){
       showAlert: function(str){
         $(".alert").text(str);
         setTimeout(function(){
-          $(".alert").fadeOut();
-        }, 1000);
+          $(".alert").slideUp();
+        }, 2000);
       },
       showNotice: function(str){
         $(".notice").text(str);
         setTimeout(function(){
-          $(".notice").fadeOut();
-        }, 1000);
+          $(".notice").slideUp();
+        }, 2000);
       }
     };
-    self.authenticator.init();
     return self;
   };
 
