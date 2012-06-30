@@ -7,12 +7,31 @@
   <link href="jasmine.css" rel="stylesheet"/>
   <script type="text/javascript" src="jasmine.js"></script>
   <script type="text/javascript" src="jasmine-html.js"></script>
+</head>
 
-  <!-- include source files here... -->
-  <script type="text/javascript" src="../../app/assets/javascripts/knockout-2.1.0.debug.js"></script>
-  <script type="text/javascript" src="../../app/assets/javascripts/application.js"></script>
+<body>
+  <script type="text/javascript">
+      var require = { baseUrl: "../../app/assets/javascripts" };
+  </script>
+  <script type="text/javascript" src="../../app/assets/javascripts/require.js"></script>
+  <script type="text/javascript">
+    requirejs = require;
+    require = function(module){
+      console.log("requiring module: " + module);
+      if (module === "requirejs"){return require;}
 
-  <!-- include spec files here... -->
+      var deps = arguments[0];
+      for (var i = 0; i < deps.length; i++){
+        var path = deps[i];
+        if (path.indexOf(".js") == (path.length - 3)){
+          deps[i] = "../../" + path;
+        }
+      }
+      console.log("prefixed paths now read: " + deps);
+      return requirejs.apply(null, [deps, arguments[1]]);
+    };
+
+  </script>
   <script type="text/javascript" src="application.spec.js"></script>
 
   <script type="text/javascript">
@@ -44,8 +63,5 @@
     })();
   </script>
 
-</head>
-
-<body>
 </body>
 </html>
