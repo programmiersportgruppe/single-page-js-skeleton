@@ -1,6 +1,8 @@
 # TODOS
 - problem: we are testing with different code (npm install) than what we are using (assets)
-- problem: not sure how to run the javascript tests in the browser
+  * the assets assume window/navigator/etc exist
+  * we can use jsdom to mock those
+  * but then the require logic needs to be monkey-patched
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 - lazy init of a new view
 - how to hide components until knockout has parsed them
