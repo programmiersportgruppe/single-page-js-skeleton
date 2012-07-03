@@ -6,7 +6,7 @@
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 - lazy init of a new view
 - how to hide components until knockout has parsed them
-- the user is signed out after the signing up -- one needs to login again
+- the user is sometimes signed out after signing up -- one needs to login again
 
 # QUESTIONS
 - do we really need i18n on the JS side?
