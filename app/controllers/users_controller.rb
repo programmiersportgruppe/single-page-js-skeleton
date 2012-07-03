@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def create
     @user = User.new(params)
+    @user.username = params['username']
     if @user.save
       @message = "You are now signed up!"
       render 'application/success'
