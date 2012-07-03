@@ -4,6 +4,7 @@
   = stylesheet_link_tag    "application", :media => "all"
   <script data-main="/assets/main" src="/assets/require.js"></script>
   = csrf_meta_tags
+  %meta{:name => 'request_info', :content => request_info}
 
   %body
 
