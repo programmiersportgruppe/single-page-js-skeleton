@@ -1,19 +1,22 @@
 define(["knockout", "jquery"], function(ko, $){
-  $.ajaxSetup({
-    dataType: 'json',
-    beforeSend: function(xhr){
-      var token = $('meta[name="csrf-token"]').attr('content');
-      console.log('sending token: ' + token);
-      xhr.setRequestHeader('X-CSRF-Token', token);
-    },
-    error: function(response){
-      var message = eval("(" + response.responseText + ")").error;
-      console.log('error: ' + message);
-      application.showAlert(message);
-    }
-  });
 
-  var Authenticator = function(){
+  var initialize_ajax = function(notifier){
+    $.ajaxSetup({
+      dataType: 'json',
+      beforeSend: function(xhr){
+        var token = $('meta[name="csrf-token"]').attr('content');
+        console.log('sending token: ' + token);
+        xhr.setRequestHeader('X-CSRF-Token', token);
+      },
+      error: function(response){
+        var message = eval("(" + response.responseText + ")").error;
+        console.log('error: ' + message);
+        notifier.showAlert(message);
+      }
+    });
+  }
+
+  var Authenticator = function(notifier){
     var self = {
       logout: function(){
         $.ajax({
@@ -21,7 +24,7 @@ define(["knockout", "jquery"], function(ko, $){
             url: '/sessions',
             success: function(response) {
               console.log('logged out: ' + response.success);
-              application.showNotice(response.success);
+              notifier.showNotice(response.success);
               self.username("");
               self.logged_in(false);
             }
@@ -52,7 +55,7 @@ define(["knockout", "jquery"], function(ko, $){
             data: $(form).serialize(),
             success: function(response) {
               console.log('signed up:' + response.success);
-              application.showNotice(response.success);
+              notifier.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
             }
@@ -65,7 +68,7 @@ define(["knockout", "jquery"], function(ko, $){
             data: $(form).serialize(),
             success: function(response) {
               console.log('logged in: ' + response.success);
-              application.showNotice(response.success);
+              notifier.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
             }
@@ -121,24 +124,7 @@ define(["knockout", "jquery"], function(ko, $){
   };
 
   var Application = function(){
-    var self = {
-      notes: Notes(),
-      todos: Todos(),
-      authenticator: Authenticator(),
-      selectedTab: ko.observable(),
-      refresh: function (){
-        self.todos.refresh(self.authenticator);
-      },
-      showNotes: function(){
-        self.todos.visible(false);
-        self.notes.visible(true);
-        self.selectedTab("notes");
-      },
-      showTodos: function(){
-        self.todos.visible(true);
-        self.notes.visible(false);
-        self.selectedTab("todos");
-      },
+    var notifier = {
       showAlert: function(str){
         $(".alert").text(str).show();
         setTimeout(function(){
@@ -153,6 +139,27 @@ define(["knockout", "jquery"], function(ko, $){
       }
     };
 
+    var self = {
+      notes: Notes(),
+      todos: Todos(),
+      authenticator: Authenticator(notifier),
+      selectedTab: ko.observable(),
+      refresh: function (){
+        self.todos.refresh(self.authenticator);
+      },
+      showNotes: function(){
+        self.todos.visible(false);
+        self.notes.visible(true);
+        self.selectedTab("notes");
+      },
+      showTodos: function(){
+        self.todos.visible(true);
+        self.notes.visible(false);
+        self.selectedTab("todos");
+      }
+    };
+
+    initialize_ajax(notifier);
     self.authenticator.logged_in.subscribe(self.refresh);
     return self;
   };
