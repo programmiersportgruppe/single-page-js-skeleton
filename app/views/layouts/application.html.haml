@@ -42,7 +42,7 @@
           .actions
             %button{:type => 'submit'} Log in
 
-    .notice{'data-bind' => 'text: notifier.notice'}= flash.notice
-    .alert{'data-bind' => 'text: notifier.alert'}= flash.alert
+    .notice{'data-bind' => 'text: notifier.notice, slideVisible: notifier.noticeVisible'}= flash.notice
+    .alert{'data-bind' => 'text: notifier.alert, slideVisible: notifier.alertVisible'}= flash.alert
 
     = yield

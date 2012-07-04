@@ -123,34 +123,12 @@ define(["knockout", "jquery"], function(ko, $){
     return self;
   };
 
-  var Notifier = function(){
-    var self = {
-      notice: ko.observable(""),
-      alert: ko.observable(""),
-      showAlert: function(str){
-        self.alert(str);
-        $(".alert").show();
-        setTimeout(function(){
-          $(".alert").slideUp();
-        }, 2000);
-      },
-      showNotice: function(str){
-        self.notice(str);
-        $(".notice").show();
-        setTimeout(function(){
-          $(".notice").slideUp();
-        }, 2000);
-      }
-    };
-    return self;
-  }
-
-  var Application = function(){
+  var Application = function(notifier){
     var self = {};
 
-    self.notifier = Notifier();
     initialize_ajax(self.notifier);
 
+    self.notifier = notifier;
     self.notes = Notes();
     self.todos = Todos();
 
