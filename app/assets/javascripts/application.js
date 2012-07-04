@@ -24,7 +24,6 @@ define(["knockout", "jquery"], function(ko, $){
               application.showNotice(response.success);
               self.username("");
               self.logged_in(false);
-              application.refresh();
             }
         });
       },
@@ -36,7 +35,6 @@ define(["knockout", "jquery"], function(ko, $){
               if (response.user){
                 self.username(response.user.username);
                 self.logged_in(true);
-                application.refresh();
               }
             }
         });
@@ -57,7 +55,6 @@ define(["knockout", "jquery"], function(ko, $){
               application.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
-              application.refresh();
             }
         });
       },
@@ -71,7 +68,6 @@ define(["knockout", "jquery"], function(ko, $){
               application.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
-              application.refresh();
             }
         });
 
@@ -156,6 +152,8 @@ define(["knockout", "jquery"], function(ko, $){
         }, 2000);
       }
     };
+
+    self.authenticator.logged_in.subscribe(self.refresh);
     return self;
   };
 
