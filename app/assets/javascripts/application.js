@@ -123,44 +123,58 @@ define(["knockout", "jquery"], function(ko, $){
     return self;
   };
 
-  var Application = function(){
-    var notifier = {
+  var Notifier = function(){
+    var self = {
+      notice: ko.observable(""),
+      alert: ko.observable(""),
       showAlert: function(str){
-        $(".alert").text(str).show();
+        self.alert(str);
+        $(".alert").show();
         setTimeout(function(){
           $(".alert").slideUp();
         }, 2000);
       },
       showNotice: function(str){
-        $(".notice").text(str).show();
+        self.notice(str);
+        $(".notice").show();
         setTimeout(function(){
           $(".notice").slideUp();
         }, 2000);
       }
     };
+    return self;
+  }
 
-    var self = {
-      notes: Notes(),
-      todos: Todos(),
-      authenticator: Authenticator(notifier),
-      selectedTab: ko.observable(),
-      refresh: function (){
-        self.todos.refresh(self.authenticator);
-      },
-      showNotes: function(){
-        self.todos.visible(false);
-        self.notes.visible(true);
-        self.selectedTab("notes");
-      },
-      showTodos: function(){
-        self.todos.visible(true);
-        self.notes.visible(false);
-        self.selectedTab("todos");
-      }
+  var Application = function(){
+    var self = {};
+
+    self.notifier = Notifier();
+    initialize_ajax(self.notifier);
+
+    self.notes = Notes();
+    self.todos = Todos();
+
+    self.selectedTab = ko.observable();
+
+    self.refresh = function (){
+      self.todos.refresh(self.authenticator);
     };
 
-    initialize_ajax(notifier);
+    self.authenticator = Authenticator(self.notifier);
     self.authenticator.logged_in.subscribe(self.refresh);
+
+    self.showNotes = function(){
+      self.todos.visible(false);
+      self.notes.visible(true);
+      self.selectedTab("notes");
+    };
+
+    self.showTodos = function(){
+      self.todos.visible(true);
+      self.notes.visible(false);
+      self.selectedTab("todos");
+    };
+
     return self;
   };
 
