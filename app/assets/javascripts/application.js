@@ -84,8 +84,8 @@ define(["knockout", "jquery"], function(ko, $){
 
   var Todos = function(){
     self = {
-      refresh: function(){
-        if (!application.authenticator.logged_in()){
+      refresh: function(authenticator){
+        if (!authenticator.logged_in()){
           self.list([]);
           return;
         }
@@ -127,7 +127,7 @@ define(["knockout", "jquery"], function(ko, $){
       authenticator: Authenticator(),
       selectedTab: ko.observable(),
       refresh: function (){
-        self.todos.refresh();
+        self.todos.refresh(self.authenticator);
       },
       showNotes: function(){
         self.todos.visible(false);
