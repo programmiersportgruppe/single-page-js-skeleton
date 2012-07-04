@@ -8,3 +8,8 @@ For example:
 * `rake server` will serve the app in development mode
 * `rake dist:server` will serve a copy of the app with all javascript files compiled
 
+# Prerequisites
+
+* `sudo apt-get install libsqlite3-dev`
+
+
