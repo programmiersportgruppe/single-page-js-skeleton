@@ -1,4 +1,5 @@
 a, a:hover, a:link, a:active {color:#666;}
+.initial_component {display:none;}
 button, input[type='button'], input[type='submit'] {font-size:100%;}
 #sidebar {float:right; width:40%;}
 #main {border-radius:20px; border:2px #ccc solid; float:left; background-color:#eee; margin:1em; padding:1em; width:50%;}

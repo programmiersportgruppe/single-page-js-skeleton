@@ -5,12 +5,7 @@
   * but then the require logic needs to be monkey-patched
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 - lazy init of a new view
-- how to hide components until knockout has parsed them
 - the user is sometimes signed out after signing up -- one needs to login again
 
 # QUESTIONS
-- do we really need i18n on the JS side?
-- is Rails useful as the JS server
-- how to do the alert/notice with a timeout knockout-like
-- how to refresh todos when user logs in knockout-style?
 - how does Rails' compilation of assets work? Is it compatible with AMD JS modules?

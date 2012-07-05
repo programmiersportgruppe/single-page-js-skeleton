@@ -9,12 +9,12 @@
   %body
 
     .topbar
-      .logged_in_template{'data-bind' => 'visible: authenticator.logged_in'}
+      .logged_in_template{:class => 'initial_component', 'data-bind' => 'visible: authenticator.logged_in'}
         logged in as 
         %span{'data-bind' => 'text: authenticator.username'}
         |
         %a{:href => sessions_path, 'data-bind' => 'click: authenticator.logout'} logout
-      .logged_out_template{'data-bind' => 'visible: authenticator.logged_in() == false'}
+      .logged_out_template{:class => 'initial_component', 'data-bind' => 'visible: authenticator.logged_in() == false'}
         %a{:href => users_path, 'data-bind' => 'click: authenticator.toggle_sign_up'} sign up
         or 
         %a{:href => sessions_path, 'data-bind' => 'click: authenticator.toggle_log_in'} log in
