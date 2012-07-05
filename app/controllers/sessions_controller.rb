@@ -1,9 +1,7 @@
 class SessionsController < ApplicationController
   def create
-    user = login(params[:username], params[:password], params[:remember_me])
-    if user
-      #redirect_back_or_to root_url, :notice => "You are now logged in."
-      #redirect_to root_url, :notice => "You are now logged in."
+    if login(params[:username], params[:password], params[:remember_me])
+      @csrf_token = form_authenticity_token
       @message = "You are now logged in!"
       render 'application/success'
     else
@@ -15,6 +13,7 @@ class SessionsController < ApplicationController
   def destroy
     logout
     @message = "You are now logged out. Thanks."
+    @csrf_token = form_authenticity_token
     render 'application/success'
   end
 end

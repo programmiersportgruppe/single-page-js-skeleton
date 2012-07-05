@@ -18,6 +18,9 @@ define(["knockout", "jquery"], function(ko, $){
 
   var Authenticator = function(notifier){
     var self = {
+      updateCsrf: function(token){
+        $('meta[name="csrf-token"]').attr('content', token);
+      },
       logout: function(){
         $.ajax({
             type: 'delete',
@@ -27,6 +30,7 @@ define(["knockout", "jquery"], function(ko, $){
               notifier.showNotice(response.success);
               self.username("");
               self.logged_in(false);
+              self.updateCsrf(response.csrfToken);
             }
         });
       },
@@ -65,6 +69,7 @@ define(["knockout", "jquery"], function(ko, $){
             data: $(form).serialize(),
             success: function(response) {
               console.log('signed up:' + response.success);
+              self.toggle_sign_up();
               notifier.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
@@ -78,9 +83,11 @@ define(["knockout", "jquery"], function(ko, $){
             data: $(form).serialize(),
             success: function(response) {
               console.log('logged in: ' + response.success);
+              self.toggle_log_in();
               notifier.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
+              self.updateCsrf(response.csrfToken);
             }
         });
 
@@ -136,9 +143,8 @@ define(["knockout", "jquery"], function(ko, $){
   var Application = function(notifier){
     var self = {};
 
-    initialize_ajax(self.notifier);
-
     self.notifier = notifier;
+    initialize_ajax(self.notifier);
     self.notes = Notes();
     self.todos = Todos();
 

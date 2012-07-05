@@ -5,7 +5,6 @@
   * but then the require logic needs to be monkey-patched
 - problem: sammy.js depends on the jQuery global variable instead of taking in a dependency
 - lazy init of a new view
-- the user is sometimes signed out after signing up -- one needs to login again
 
 # QUESTIONS
 - how does Rails' compilation of assets work? Is it compatible with AMD JS modules?
