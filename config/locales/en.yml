@@ -6,6 +6,18 @@ en:
   notes: "Notes"
   notes_content: "Hmmm. Please come back later..."
   add_todo: "Add todo"
+  or: "or"
+  signup:
+    signup: "sign up"
+    username: "Username"
+    password: "Password"
+    password_confirmation: "Password confirmation"
+    button: "Sign up"
+  login:
+    login: "log in"
+    username: "Username"
+    password: "Password"
+    button: "Log in"
   sidebar:
     one: "Welcome to this sample app. This application was built to demonstrate a single-page javascript application."
     two: "The client side makes use of:"

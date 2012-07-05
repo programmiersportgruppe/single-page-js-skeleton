@@ -15,32 +15,32 @@
         |
         %a{:href => sessions_path, 'data-bind' => 'click: authenticator.logout'} logout
       .logged_out_template{:class => 'initial_component', 'data-bind' => 'visible: authenticator.logged_in() == false'}
-        %a{:href => users_path, 'data-bind' => 'click: authenticator.toggle_sign_up'} sign up
-        or 
-        %a{:href => sessions_path, 'data-bind' => 'click: authenticator.toggle_log_in'} log in
+        %a{:href => users_path, 'data-bind' => 'click: authenticator.toggle_sign_up'}= I18n.t 'signup.signup'
+        = I18n.t 'or' 
+        %a{:href => sessions_path, 'data-bind' => 'click: authenticator.toggle_log_in'}= I18n.t 'login.login'
 
         %form{'data-bind' => 'submit: authenticator.sign_up, visible: authenticator.sign_up_page.visible', :method => 'post', :action => users_path}
           .field
-            %label Username
+            %label= I18n.t 'signup.username'
             %input{:type => 'text', :name => 'username'}
           .field
-            %label Password
+            %label= I18n.t 'signup.password'
             %input{:type => 'password', :name => 'password'}
           .field
-            %label Password confirmation
+            %label= I18n.t 'signup.password_confirmation'
             %input{:type => 'password', :name => 'password_confirmation'}
           .actions
-            %input{:type => 'submit'}
+            %input{:type => 'submit', :value => I18n.t('signup.button')}
 
         %form{'data-bind' => 'submit: authenticator.log_in, visible: authenticator.log_in_page.visible', :method => 'post', :action => sessions_path}
           .field
-            %label Username
+            %label= I18n.t 'login.username'
             %input{:type => 'text', :name => 'username'}
           .field
-            %label Password
+            %label= I18n.t 'login.password'
             %input{:type => 'password', :name => 'password'}
           .actions
-            %button{:type => 'submit'} Log in
+            %button{:type => 'submit'}= I18n.t 'login.button'
 
     .notice{'data-bind' => 'text: notifier.notice, slideVisible: notifier.noticeVisible'}= flash.notice
     .alert{'data-bind' => 'text: notifier.alert, slideVisible: notifier.alertVisible'}= flash.alert

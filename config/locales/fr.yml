@@ -3,6 +3,18 @@ fr:
   notes: "Mes notes"
   notes_content: "Hmmm. Revenez içi plus tard..."
   add_todo: "Ajouter à la liste"
+  or: "ou"
+  signup:
+    signup: "enregistrez-vous"
+    username: "Nom d'usager"
+    password: "Mot de passe"
+    password_confirmation: "Confirmation du mot de passe"
+    button: "S'enregistrer"
+  login:
+    login: "connectez-vous"
+    username: "Nom d'usager"
+    password: "Mot de passe"
+    button: "Se connecter"
   sidebar:
     one: "Bienvenue à ce site démo. Cette application a été batie pour démontrer une application javascript avec page unique."
     two: "Le côté client utilise les technologies suivantes:"

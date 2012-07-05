@@ -44,8 +44,18 @@ define(["knockout", "jquery"], function(ko, $){
       },
       log_in_page: {visible: ko.observable(false)},
       sign_up_page: {visible: ko.observable(false)},
-      toggle_log_in: function(){self.log_in_page.visible(!self.log_in_page.visible());},
-      toggle_sign_up: function(){self.sign_up_page.visible(!self.sign_up_page.visible());},
+      toggle_log_in: function(){
+        self.log_in_page.visible(!self.log_in_page.visible());
+        if (self.log_in_page.visible()){
+          self.sign_up_page.visible(false);
+        }
+      },
+      toggle_sign_up: function(){
+        self.sign_up_page.visible(!self.sign_up_page.visible());
+        if (self.sign_up_page.visible()){
+          self.log_in_page.visible(false);
+        }
+      },
       logged_in: ko.observable(false),
       username: ko.observable(""),
       sign_up: function(form){
