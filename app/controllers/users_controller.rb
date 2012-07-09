@@ -5,14 +5,10 @@ class UsersController < ApplicationController
     @user.password = params['password']
     @user.password_confirmation = params['password_confirmation']
 
-    if @user.save
-      if login_but_keep_csrf_token(params)
-        @message = "You are now signed up!"
-        render 'application/success'
-      else
-        @error = "Could not log in after creating the user."
-        render 'application/error', :status => '401'
-      end
+    if @user.save and login(params[:username], params[:password], params[:remember_me])
+      @csrf_token = form_authenticity_token
+      @message = "You are now logged in!"
+      render 'application/success'
     else
       @error = "Could not create user."
       render 'application/error', :status => '401'

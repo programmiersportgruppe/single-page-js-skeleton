@@ -73,6 +73,7 @@ define(["knockout", "jquery"], function(ko, $){
               notifier.showNotice(response.success);
               self.username(form.username.value);
               self.logged_in(true);
+              self.updateCsrf(response.csrfToken);
             }
         });
       },
